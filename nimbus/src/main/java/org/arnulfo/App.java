@@ -9,10 +9,13 @@ public class App {
     public static void main(String[] args) throws Exception {
         // The client ID provisioned by the OpenID provider when
         // the client was registered
-        ClientID clientID = new ClientID("my-client");
+        // ClientID clientID = new ClientID("my-client");
+        //ClientID clientID = new ClientID("000123");
+        ClientID clientID = new ClientID("cat-app-id");
 
         // The client callback URL
         URI callback = new URI("https://client.com/callback");
+        //URI callback = new URI("https://demo.c2id.com/oidc-client/cb");
 
         // Generate random state string to securely pair the callback to this request
         State state = new State();
@@ -20,11 +23,15 @@ public class App {
         // Generate nonce for the ID token
         Nonce nonce = new Nonce();
 
+        // String authEndpoint = "https://c2id.com/login";
+        // Keycloak on cloud-iam.com
+        String authEndpoint = "https://lemur-1.cloud-iam.com/auth/realms/test-oidc/protocol/openid-connect/auth";
+        // Connect2id
+        //String authEndpoint = "https://demo.c2id.com/c2id-login";
+
         // Compose the OpenID authentication request (for the code flow)
-        //AuthenticationRequest request = new AuthenticationRequest.Builder(new ResponseType("code"), new Scope("openid"),
-        //        clientID, callback).endpointURI(new URI("https://c2id.com/login")).state(state).nonce(nonce).build();
         AuthenticationRequest request = new AuthenticationRequest.Builder(new ResponseType("code"), new Scope("openid"),
-                clientID, callback).endpointURI(new URI("https://lemur-1.cloud-iam.com/auth/realms/test-oidc/protocol/openid-connect/auth")).state(state).nonce(nonce).build();
+                clientID, callback).endpointURI(new URI(authEndpoint)).state(state).nonce(nonce).build();
 
         // The URI to send the user-user browser to the OpenID provider
         // E.g.

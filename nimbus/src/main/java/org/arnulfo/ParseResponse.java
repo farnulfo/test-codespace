@@ -13,9 +13,9 @@ public class ParseResponse {
         // https://client.com/callback?
         // state=6SK5S15Lwdp3Pem_55m-ayudGwno0eglKq6ZEWaykG8
         // &code=eemeuWi9reingee0
-        AuthenticationResponse response = AuthenticationResponseParser.parse(new URI("https://client.com/callback?state=kxTqnjmo-IrkxFa6_K3unDxh-kPkWOTLLNAK3j3l8S0&session_state=51f47978-3a5e-41ca-93ce-11447393c294&code=f605bc89-8b90-4e7d-8652-1cef79d9e7c8.51f47978-3a5e-41ca-93ce-11447393c294.2b5dc2b9-7c77-44f4-8225-4972744f7ddb"));
+        AuthenticationResponse response = AuthenticationResponseParser.parse(new URI("https://client.com/callback?state=pTwkwam0kfmuPx93QObcyhclvIMVH0W7Gs5FnFWl5vM&session_state=4cea719f-fe5f-4174-920b-ea7371209c56&code=9ad3eabd-6624-40a5-abb1-a6a56c49f488.4cea719f-fe5f-4174-920b-ea7371209c56.bcf09a2b-dfb2-4862-87d4-b5f5bea7432e"));
 
-        State state = new State("kxTqnjmo-IrkxFa6_K3unDxh-kPkWOTLLNAK3j3l8S0");
+        State state = new State("pTwkwam0kfmuPx93QObcyhclvIMVH0W7Gs5FnFWl5vM");
 
         // Check the state
         if (!response.getState().equals(state)) {
@@ -31,7 +31,7 @@ public class ParseResponse {
 
         // Retrieve the authorisation code, to use it later at the token endpoint
         AuthorizationCode code = response.toSuccessResponse().getAuthorizationCode();
-        System.out.println(response.toSuccessResponse().getAuthorizationCode());
+        System.out.println("AuthorizationCode:" + response.toSuccessResponse().getAuthorizationCode());
 
     }
 }
