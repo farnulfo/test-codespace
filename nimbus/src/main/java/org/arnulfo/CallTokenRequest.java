@@ -10,9 +10,12 @@ import com.nimbusds.oauth2.sdk.http.*;
 import com.nimbusds.oauth2.sdk.id.*;
 import com.nimbusds.oauth2.sdk.token.*;
 import com.nimbusds.oauth2.sdk.TokenRequest;
+import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 import com.nimbusds.jwt.JWT;
 
 public class CallTokenRequest {
+
+    public static final boolean useProxy = false;
     public static void main(String[] args) throws Exception {
         // Construct the code grant from the code obtained from the authz endpoint
         // and the original callback URI used at the authz endpoint
@@ -41,8 +44,15 @@ public class CallTokenRequest {
 
         // Make the token request
         TokenRequest request = new TokenRequest(tokenEndpoint, clientAuth, codeGrant);
+        HTTPRequest httpRequest = request.toHTTPRequest();
 
-        TokenResponse tokenResponse = OIDCTokenResponseParser.parse(request.toHTTPRequest().send());
+        if (useProxy) {
+            InetSocketAddress proxyAddressAndPort = new InetSocketAddress("localhost", 5050); 
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, proxyAddressAndPort);
+            httpRequest.setProxy(proxy); 
+        }
+
+        TokenResponse tokenResponse = OIDCTokenResponseParser.parse(httpRequest.send());
 
         if (!tokenResponse.indicatesSuccess()) {
             // We got an error response...
