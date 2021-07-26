@@ -20,7 +20,7 @@ public class CallTokenRequest {
         // Construct the code grant from the code obtained from the authz endpoint
         // and the original callback URI used at the authz endpoint
         AuthorizationCode code = new AuthorizationCode(
-                "45ca32c0-6dac-46f7-b45f-7a1e18cb79c8.c6f31c65-1ac2-4092-ac2f-c5e1485aee17.bcf09a2b-dfb2-4862-87d4-b5f5bea7432e");
+                "64f8716b-5e91-455e-a8fa-e6c2ed3801e3.3ac0007c-4b9c-4eb1-a27a-125c4864251c.bcf09a2b-dfb2-4862-87d4-b5f5bea7432e");
 
         URI callback = new URI("https://client.com/callback");
         //URI callback = new URI("https://demo.c2id.com/oidc-client/cb");
@@ -68,9 +68,9 @@ public class CallTokenRequest {
             AccessToken accessToken = successResponse.getOIDCTokens().getAccessToken();
             RefreshToken refreshToken = successResponse.getOIDCTokens().getRefreshToken();
 
-            System.out.println("JWT idtoken:" + idToken.serialize());
-            System.out.println("AccessToken:" + accessToken);
-            System.out.println("RefreshToken" + refreshToken);
+            System.out.println("JWT idtoken: " + idToken.serialize());
+            System.out.println("AccessToken: " + accessToken);
+            System.out.println("RefreshToken: " + refreshToken);
         }
     }
 }
