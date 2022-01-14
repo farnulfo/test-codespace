@@ -13,25 +13,13 @@ import com.nimbusds.oauth2.sdk.TokenRequest;
 import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 import com.nimbusds.jwt.JWT;
 
-public class CallTokenRequest {
+public class CallTokenRequestGrantClientID {
 
     public static final boolean useProxy = false;
     public static void main(String[] args) throws Exception {
-        // Construct the code grant from the code obtained from the authz endpoint
-        // and the original callback URI used at the authz endpoint
-        AuthorizationCode code = new AuthorizationCode(
-                "b6dbf4f8-8edd-4471-9349-68a9dfc43cdf.81c2bcc8-a5d1-4cdd-9694-7d85ecb47e5b.bcf09a2b-dfb2-4862-87d4-b5f5bea7432e");
 
         URI callback = new URI("https://client.com/callback");
-        //URI callback = new URI("https://demo.c2id.com/oidc-client/cb");
-        AuthorizationGrant codeGrant = new AuthorizationCodeGrant(code, callback);
-
-        // The credentials to authenticate the client at the token endpoint
-        //ClientID clientID = new ClientID("my-client");
-        //Secret clientSecret = new Secret("1a3666ed-9d52-44c8-b874-bea93971ca1d");
-
-        //ClientID clientID = new ClientID("000123");
-        //Secret clientSecret = new Secret("rlC_8s3oBayCynAO_7UKt34hbEwiiTKx0l7zRcrFY3A");
+        AuthorizationGrant grant = new ClientCredentialsGrant();
 
         ClientID clientID = new ClientID("cat-app-id");
         Secret clientSecret = new Secret("9c1ef67f-e74e-4fd2-a81f-0ffb9a8aefb4");
@@ -40,10 +28,9 @@ public class CallTokenRequest {
 
         // The token endpoint
         URI tokenEndpoint = new URI("https://lemur-1.cloud-iam.com/auth/realms/test-oidc/protocol/openid-connect/token");
-        //URI tokenEndpoint = new URI("https://demo.c2id.com/token");
 
         // Make the token request
-        TokenRequest request = new TokenRequest(tokenEndpoint, clientAuth, codeGrant);
+        TokenRequest request = new TokenRequest(tokenEndpoint, clientAuth, grant);
         HTTPRequest httpRequest = request.toHTTPRequest();
 
         if (useProxy) {
@@ -68,7 +55,7 @@ public class CallTokenRequest {
             AccessToken accessToken = successResponse.getOIDCTokens().getAccessToken();
             RefreshToken refreshToken = successResponse.getOIDCTokens().getRefreshToken();
 
-            System.out.println("JWT idtoken: " + idToken.serialize());
+            System.out.println("JWT idtoken: " + (idToken == null ? "null" : idToken.serialize()));
             System.out.println("AccessToken: " + accessToken);
             System.out.println("RefreshToken: " + refreshToken);
         }

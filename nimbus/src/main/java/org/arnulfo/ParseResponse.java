@@ -13,9 +13,9 @@ public class ParseResponse {
         // https://client.com/callback?
         // state=6SK5S15Lwdp3Pem_55m-ayudGwno0eglKq6ZEWaykG8
         // &code=eemeuWi9reingee0
-        AuthenticationResponse response = AuthenticationResponseParser.parse(new URI("https://client.com/callback?state=STvegagydKgU3mzk_6NPbTHxPdXWN2aKQU_yAGVoaQs&session_state=3ac0007c-4b9c-4eb1-a27a-125c4864251c&code=64f8716b-5e91-455e-a8fa-e6c2ed3801e3.3ac0007c-4b9c-4eb1-a27a-125c4864251c.bcf09a2b-dfb2-4862-87d4-b5f5bea7432e"));
+        AuthenticationResponse response = AuthenticationResponseParser.parse(new URI("https://client.com/callback?state=Mcew8TR4nXeLO5ea5fby98bOGNLAIVfeOKNb1KMjQyw&session_state=81c2bcc8-a5d1-4cdd-9694-7d85ecb47e5b&code=b6dbf4f8-8edd-4471-9349-68a9dfc43cdf.81c2bcc8-a5d1-4cdd-9694-7d85ecb47e5b.bcf09a2b-dfb2-4862-87d4-b5f5bea7432e"));
 
-        State state = new State("STvegagydKgU3mzk_6NPbTHxPdXWN2aKQU_yAGVoaQs");
+        State state = new State("Mcew8TR4nXeLO5ea5fby98bOGNLAIVfeOKNb1KMjQyw");
 
         // Check the state
         if (!response.getState().equals(state)) {

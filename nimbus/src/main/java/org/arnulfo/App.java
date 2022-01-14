@@ -29,8 +29,12 @@ public class App {
         // Connect2id
         //String authEndpoint = "https://demo.c2id.com/c2id-login";
 
+        Scope scope = new Scope();
+        scope.add("openid");
+        scope.add("my-securities");
+
         // Compose the OpenID authentication request (for the code flow)
-        AuthenticationRequest request = new AuthenticationRequest.Builder(new ResponseType("code"), new Scope("openid"),
+        AuthenticationRequest request = new AuthenticationRequest.Builder(new ResponseType("code"), scope,
                 clientID, callback).endpointURI(new URI(authEndpoint)).state(state).nonce(nonce).build();
 
         // The URI to send the user-user browser to the OpenID provider
